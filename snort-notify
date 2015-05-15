@@ -1,0 +1,10 @@
+#!/bin/bash
+
+LOGFILE="/var/log/snort/alert"
+TITLE="*** SNORT ***"
+
+tail -n0 -f "${LOGFILE}" | \
+    grep --line-buffered '\[\*\*\]' | \
+    while read line ; do
+        osascript -e "display notification \"${line/\"/\\\"}\" with title \"${TITLE/\"/\\\"}\""
+    done
